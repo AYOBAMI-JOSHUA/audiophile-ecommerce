@@ -26,7 +26,7 @@ export default function CheckoutPage() {
     zipCode: "",
     city: "",
     country: "",
-    paymentMethod: "eMoney",
+    paymentMethod: "e-Money",
     eMoneyNumber: "",
     eMoneyPIN: ""
   });
@@ -64,7 +64,7 @@ export default function CheckoutPage() {
     if (!formData.city) newErrors.city = "City is required";
     if (!formData.country) newErrors.country = "Country is required";
     
-    if (formData.paymentMethod === "eMoney") {
+    if (formData.paymentMethod === "e-Money") {
       if (!formData.eMoneyNumber) newErrors.eMoneyNumber = "e-Money number required";
       if (!formData.eMoneyPIN) newErrors.eMoneyPIN = "e-Money PIN required";
     }
