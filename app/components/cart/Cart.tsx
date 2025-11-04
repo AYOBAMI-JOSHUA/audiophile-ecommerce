@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Cart() {
   const [isOpen, setIsOpen] = useState(false);
-  const { state, removeAll, getTotal, getItemCount, updateQuantity } = useCart();
+  const { state, clearCart, getTotal, getItemCount, updateQuantity } = useCart();
   
   // Use state.items instead of cartItems
   const cartItems = state.items;
@@ -48,7 +48,7 @@ export default function Cart() {
             <div className="flex justify-between items-center mb-8">
               <h2 className="h6 text-black">CART ({getItemCount()})</h2>
               <button 
-                onClick={removeAll}
+                onClick={clearCart}
                 className="body text-black text-opacity-50 underline hover:text-primary"
               >
                 Remove all
