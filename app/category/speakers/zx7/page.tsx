@@ -8,6 +8,7 @@ import ProductGallery from "@/app/components/product/ProductGallery";
 import ProductDetails from "@/app/components/product/ProductDetails";
 import ProductCard from "@/app/components/product/ProductCard";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ZX7Page() {
   const [quantity, setQuantity] = useState(1);
@@ -19,7 +20,7 @@ export default function ZX7Page() {
     description: "Stream high quality sound wirelessly with minimal loss. The ZX7 speaker uses high-end audiophile components that represents the top of the line powered speakers for home or studio use.",
     features: `Reap the advantages of a flat diaphragm tweeter cone. This provides a fast response rate and excellent high frequencies that lower distortion but conventional speaker cannot provide. The woofers are made of aluminum that produces unique and clear sound. XLR inputs allow you to connect to a mixer for more advanced usage.\n\nThe ZX7 speaker is the perfect blend of stylish design and high performance. It houses an encased MDF wooden enclosure which minimizes acoustic resonance. Dual connectivity allows pairing through bluetooth or traditional optical and RCA input. Switch input sources and control volume at your finger tips with the included wireless remote. This versatile speaker is equipped to deliver an authentic listening experience.`,
     price: 3500,
-    image: "/assets/zx7-speaker.png",
+    image: "/assets/category/zx7-speaker.png",
     includes: [
       { quantity: 2, item: "Speaker Unit" },
       { quantity: 2, item: "Speaker Grille" },
@@ -36,7 +37,6 @@ export default function ZX7Page() {
   ];
 
   const handleAddToCart = () => {
-    // FIXED: Use addItem instead of addToCart and remove the for loop
     addItem({
       id: productData.id,
       name: productData.name,
@@ -44,7 +44,6 @@ export default function ZX7Page() {
       image: productData.image,
       quantity: quantity
     });
-    // Reset quantity after adding to cart
     setQuantity(1);
   };
 
@@ -72,8 +71,13 @@ export default function ZX7Page() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Product Image */}
-            <div className="bg-gray-dark rounded-lg h-[560px]">
-              {/* Product image placeholder */}
+            <div className="bg-gray-dark rounded-lg h-[560px] relative overflow-hidden">
+              <Image
+                src={productData.image}
+                alt={productData.name}
+                fill
+                className="object-contain p-8"
+              />
             </div>
             
             {/* Product Info */}
@@ -112,7 +116,13 @@ export default function ZX7Page() {
       <ProductDetails features={productData.features} includes={productData.includes} />
 
       {/* Gallery */}
-      <ProductGallery />
+      <ProductGallery 
+        images={{
+          first: "/assets/product/zx7-1.png", 
+          second: "/assets/product/zx7-2.png", 
+          third: "/assets/product/zx7-3.png"
+        }}
+      />
 
       {/* You May Also Like */}
       <section className="py-20 bg-white">

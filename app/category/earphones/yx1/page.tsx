@@ -8,10 +8,11 @@ import ProductGallery from "@/app/components/product/ProductGallery";
 import ProductDetails from "@/app/components/product/ProductDetails";
 import ProductCard from "@/app/components/product/ProductCard";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function YX1Page() {
   const [quantity, setQuantity] = useState(1);
-  const { addItem } = useCart(); // CHANGED: addToCart → addItem
+  const { addItem } = useCart();
 
   const productData = {
     id: "yx1",
@@ -19,7 +20,7 @@ export default function YX1Page() {
     description: "Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.",
     features: `Experience unrivalled stereo sound thanks to innovative acoustic technology. With improved ergonomics designed for full day wearing, these revolutionary earphones have been finely crafted to provide a perfect fit, delivering complete comfort all day long while enjoying exceptional noise isolation and truly immersive sound.\n\nThe YX1 Wireless Earphones feature customizable controls for volume, music, calls, and voice assistants built into both earcups. The new 7-hour battery life can be extended up to 28 hours with the charging case, giving you unrestricted play time. Exceptional craftsmanship with a quality matte design are available in an all over white and grey color scheme as well as the popular classic black.`,
     price: 599,
-    image: "/assets/yx1-earphones.png",
+    image: "/assets/category/yx1-earphones.png",
     includes: [
       { quantity: 2, item: "Earpiece Unit" },
       { quantity: 6, item: "Multi-size Earplugs" },
@@ -36,15 +37,13 @@ export default function YX1Page() {
   ];
 
   const handleAddToCart = () => {
-    // CHANGED: Use addItem with quantity instead of looping
     addItem({
       id: productData.id,
       name: productData.name,
       price: productData.price,
       image: productData.image,
-      quantity: quantity // ADDED: Include quantity here
+      quantity: quantity
     });
-    // Reset quantity after adding to cart
     setQuantity(1);
   };
 
@@ -72,8 +71,13 @@ export default function YX1Page() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Product Image */}
-            <div className="bg-gray-dark rounded-lg h-[560px]">
-              {/* Product image placeholder */}
+            <div className="bg-gray-dark rounded-lg h-[560px] relative overflow-hidden">
+              <Image
+                src={productData.image}
+                alt={productData.name}
+                fill
+                className="object-contain p-8"
+              />
             </div>
             
             {/* Product Info */}
@@ -113,7 +117,13 @@ export default function YX1Page() {
       <ProductDetails features={productData.features} includes={productData.includes} />
 
       {/* Gallery */}
-      <ProductGallery />
+      <ProductGallery
+        images={{
+          first: "/assets/product/yx1-1.png", 
+          second: "/assets/product/yx1-2.png", 
+          third: "/assets/product/yx1-3.png"
+        }}
+       />
 
       {/* You May Also Like */}
       <section className="py-20 bg-white">

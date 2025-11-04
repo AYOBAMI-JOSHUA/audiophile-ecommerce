@@ -1,20 +1,21 @@
 import CategoryGrid from "@/app/components/home/CategoryGrid";
 import AboutSection from "@/app/components/home/AboutSection";
 import Link from "next/link";
+import Image from "next/image";
 
 const speakers = [
   {
     name: "ZX9 SPEAKER",
     description: "Upgrade your sound system with the all new ZX9 active speaker. It's a bookshelf speaker system that offers truly wireless connectivity, creating new possibilities for more pleasing and practical audio setups.",
     href: "/category/speakers/zx9",
-    image: "/assets/zx9-speaker.png",
+    image: "/assets/category/zx9-speaker.png",
     isNew: true
   },
   {
     name: "ZX7 SPEAKER", 
     description: "Stream high quality sound wirelessly with minimal loss. The ZX7 bookshelf speaker uses high-end materials and represents the pinnacle of audio equipment for the modern home or office.",
     href: "/category/speakers/zx7",
-    image: "/assets/zx7-speaker.png",
+    image: "/assets/category/zx7-speaker.png",
     isNew: false
   }
 ];
@@ -36,8 +37,13 @@ export default function SpeakersPage() {
                     {speakers.map((product, index) => (
                     <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-16`}>
                         {/* Product Image */}
-                        <div className="bg-gray-dark rounded-lg w-full md:w-1/2 h-80">
-                        {/* Image placeholder */}
+                        <div className="bg-gray-dark rounded-lg w-full md:w-1/2 h-80 relative overflow-hidden">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            fill
+                            className="object-contain p-8"
+                          />
                         </div>
                         
                         {/* Product Info */}

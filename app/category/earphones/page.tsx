@@ -1,16 +1,17 @@
 import CategoryGrid from "@/app/components/home/CategoryGrid";
 import AboutSection from "@/app/components/home/AboutSection";
 import Link from "next/link";
+import Image from "next/image";
 
 const earphones = [
   {
-    id: "yx1", // Added ID for cart
+    id: "yx1",
     name: "YX1 WIRELESS EARPHONES",
     description: "Tailor your listening experience with bespoke dynamic drivers from the new YX1 Wireless Earphones. Enjoy incredible high-fidelity sound even in noisy environments with its active noise cancellation feature.",
     href: "/category/earphones/yx1",
-    image: "/assets/yx1-earphones.png",
+    image: "/assets/category/yx1-earphones.png",
     isNew: true,
-    price: 599 // Added price for cart
+    price: 599
   }
 ];
 
@@ -31,8 +32,13 @@ export default function EarphonesPage() {
             {earphones.map((product, index) => (
               <div key={index} className="flex flex-col md:flex-row items-center gap-16">
                 {/* Product Image */}
-                <div className="bg-gray-dark rounded-lg w-full md:w-1/2 h-80">
-                  {/* Image placeholder */}
+                <div className="bg-gray-dark rounded-lg w-full md:w-1/2 h-80 relative overflow-hidden">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    fill
+                    className="object-contain p-8"
+                  />
                 </div>
                 
                 {/* Product Info */}

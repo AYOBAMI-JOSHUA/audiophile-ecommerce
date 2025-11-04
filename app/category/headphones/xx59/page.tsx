@@ -8,10 +8,11 @@ import ProductGallery from "@/app/components/product/ProductGallery";
 import ProductDetails from "@/app/components/product/ProductDetails";
 import ProductCard from "@/app/components/product/ProductCard";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function XX59Page() {
   const [quantity, setQuantity] = useState(1);
-  const { addItem } = useCart(); // CHANGED: addToCart → addItem
+  const { addItem } = useCart();
 
   const productData = {
     id: "xx59",
@@ -19,7 +20,7 @@ export default function XX59Page() {
     description: "Enjoy your audio almost anywhere and customize it to your specific tastes with the XX59 headphones. The stylish yet durable versatile wireless headset is a brilliant companion at home or on the move.",
     features: `These headphones have been created from durable, high-quality materials tough enough to take anywhere. Its compact folding design fuses comfort and minimalist style making it perfect for travel. Flawless transmission is assured by the latest wireless technology engineered for audio synchronization with videos.\n\nMore than a simple pair of headphones, this headset features a pair of built-in microphones for clear, hands-free calling when paired with a compatible smartphone. Controlling music and calls is also intuitive thanks to easy-access touch buttons on the earcups. Regardless of how you use the XX59 headphones, you can do so all day thanks to an impressive 30-hour battery life that can be rapidly recharged via USB-C.`,
     price: 899,
-    image: "/assets/xx59.png",
+    image: "/assets/category/xx59.png",
     includes: [
       { quantity: 1, item: "Headphone Unit" },
       { quantity: 2, item: "Replacement Earcups" },
@@ -35,15 +36,13 @@ export default function XX59Page() {
   ];
 
   const handleAddToCart = () => {
-    // CHANGED: Use addItem with quantity instead of looping
     addItem({
       id: productData.id,
       name: productData.name,
       price: productData.price,
       image: productData.image,
-      quantity: quantity // ADDED: Include quantity here
+      quantity: quantity
     });
-    // Reset quantity after adding to cart
     setQuantity(1);
   };
 
@@ -71,8 +70,13 @@ export default function XX59Page() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Product Image */}
-            <div className="bg-gray-dark rounded-lg h-[560px]">
-              {/* Product image placeholder */}
+            <div className="bg-gray-dark rounded-lg h-[560px] relative overflow-hidden">
+              <Image
+                src={productData.image}
+                alt={productData.name}
+                fill
+                className="object-contain p-8"
+              />
             </div>
             
             {/* Product Info */}
@@ -111,7 +115,13 @@ export default function XX59Page() {
       <ProductDetails features={productData.features} includes={productData.includes} />
 
       {/* Gallery */}
-      <ProductGallery />
+      <ProductGallery 
+        images={{
+          first: "/assets/product/xx59-1.png", 
+          second: "/assets/product/xx59-2.png", 
+          third: "/assets/product/xx59-3.png"
+        }}
+      />
 
       {/* You May Also Like */}
       <section className="py-20 bg-white">

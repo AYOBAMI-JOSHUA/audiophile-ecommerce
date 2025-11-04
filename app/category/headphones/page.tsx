@@ -1,27 +1,28 @@
 import CategoryGrid from "@/app/components/home/CategoryGrid";
 import AboutSection from "@/app/components/home/AboutSection";
 import Link from "next/link";
+import Image from "next/image";
 
 const headphones = [
   {
     name: "XX99 MARK II HEADPHONES",
     description: "The new XX99 Mark II headphones is the pinnacle of pristine audio...",
-    href: "/category/headphones/xx99-mark-ii", // This should match your page file name
-    image: "/assets/xx99-mark-ii.png",
+    href: "/category/headphones/xx99-mark-ii", 
+    image: "/assets/category/xx99-mark-ii.png",
     isNew: true
   },
   {
     name: "XX99 MARK I HEADPHONES", 
     description: "As the gold standard for headphones...",
-    href: "/category/headphones/xx99-mark-i", // Will create this page later
-    image: "/assets/xx99-mark-i.png",
+    href: "/category/headphones/xx99-mark-i", 
+    image: "/assets/category/xx99-mark-i.png",
     isNew: false
   },
   {
     name: "XX59 HEADPHONES",
     description: "Enjoy your audio almost anywhere...",
-    href: "/category/headphones/xx59", // Will create this page later
-    image: "/assets/xx59.png", 
+    href: "/category/headphones/xx59", 
+    image: "/assets/category/xx59.png", 
     isNew: false
   }
 ];
@@ -36,15 +37,20 @@ export default function HeadphonesPage() {
                 </div>
             </section>
 
-            {/* Products List - ADD PADDING HERE */}
+            {/* Products List */}
             <section className="py-20 bg-gray-light">
                 <div className="container mx-auto px-6">
                     <div className="space-y-32">
                         {headphones.map((product, index) => (
                         <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-16`}>
                             {/* Product Image */}
-                            <div className="bg-gray-dark rounded-lg w-full md:w-1/2 h-80">
-                            {/* Image placeholder */}
+                            <div className="bg-gray-dark rounded-lg w-full md:w-1/2 h-80 relative overflow-hidden">
+                              <Image
+                                src={product.image}
+                                alt={product.name}
+                                fill
+                                className="object-contain p-8"
+                              />
                             </div>
                             
                             {/* Product Info */}

@@ -1,6 +1,8 @@
+import Image from 'next/image';
+
 export default function AboutSection() {
     return (
-        <section className="bg-white py-20"> {/* White background */}
+        <section className="bg-white py-20">
             <div className="container mx-auto px-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 {/* Content Side */}
@@ -15,8 +17,13 @@ export default function AboutSection() {
                 </div>
                 
                 {/* Image Side */}
-                <div className="bg-gray-dark rounded-lg h-80">
-                    {/* About us image placeholder */}
+                <div className="bg-gray-dark rounded-lg h-80 relative overflow-hidden">
+                    <Image
+                        src="/assets/home/about-image.png"
+                        alt="Audiophile store and equipment"
+                        fill
+                        className="object-cover"
+                    />
                 </div>
                 </div>
             </div>

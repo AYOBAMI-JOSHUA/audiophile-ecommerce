@@ -8,6 +8,7 @@ import ProductGallery from "@/app/components/product/ProductGallery";
 import ProductDetails from "@/app/components/product/ProductDetails";
 import ProductCard from "@/app/components/product/ProductCard";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ZX9Page() {
   const [quantity, setQuantity] = useState(1);
@@ -17,9 +18,9 @@ export default function ZX9Page() {
     id: "zx9",
     name: "ZX9 SPEAKER",
     description: "Upgrade your sound system with the all new ZX9 active speaker. It's a bookshelf speaker system that offers truly wireless connectivity, creating new possibilities for more pleasing and practical audio setups.",
-    features: `Connect via Bluetooth or nearly any wired source. This speaker features optical, digital coaxial, USB Type-B, stereo RCA, and stereo XLR inputs, allowing you to have up to five wired source devices connected for easy switching. Improved Bluetooth technology offers near lossless audio quality at up to 328ft (100m).\n\nDiscover clear, more natural sounding highs than the competition with ZX9's signature planar diaphragm tweeter. Equally important is its powerful room-shaking bass courtesy of a 6.5” aluminum dome bass driver. You'll be able to enjoy equal sound quality whether in a large room or small den. Furthermore, you will experience new sensations from old songs since it can respond to even the subtle waveforms.`,
+    features: `Connect via Bluetooth or nearly any wired source. This speaker features optical, digital coaxial, USB Type-B, stereo RCA, and stereo XLR inputs, allowing you to have up to five wired source devices connected for easy switching. Improved Bluetooth technology offers near lossless audio quality at up to 328ft (100m).\n\nDiscover clear, more natural sounding highs than the competition with ZX9's signature planar diaphragm tweeter. Equally important is its powerful room-shaking bass courtesy of a 6.5" aluminum dome bass driver. You'll be able to enjoy equal sound quality whether in a large room or small den. Furthermore, you will experience new sensations from old songs since it can respond to even the subtle waveforms.`,
     price: 4500,
-    image: "/assets/zx9-speaker.png",
+    image: "/assets/category/zx9-speaker.png",
     includes: [
       { quantity: 2, item: "Speaker Unit" },
       { quantity: 2, item: "Speaker Cloth Panel" },
@@ -36,7 +37,6 @@ export default function ZX9Page() {
   ];
 
   const handleAddToCart = () => {
-    // FIXED: Use addItem instead of addToCart and remove the for loop
     addItem({
       id: productData.id,
       name: productData.name,
@@ -44,7 +44,6 @@ export default function ZX9Page() {
       image: productData.image,
       quantity: quantity
     });
-    // Reset quantity after adding to cart
     setQuantity(1);
   };
 
@@ -72,8 +71,13 @@ export default function ZX9Page() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Product Image */}
-            <div className="bg-gray-dark rounded-lg h-[560px]">
-              {/* Product image placeholder */}
+            <div className="bg-gray-dark rounded-lg h-[560px] relative overflow-hidden">
+              <Image
+                src={productData.image}
+                alt={productData.name}
+                fill
+                className="object-contain p-8"
+              />
             </div>
             
             {/* Product Info */}
@@ -113,7 +117,13 @@ export default function ZX9Page() {
       <ProductDetails features={productData.features} includes={productData.includes} />
 
       {/* Gallery */}
-      <ProductGallery />
+      <ProductGallery 
+        images={{
+          first: "/assets/product/zx9-1.png", 
+          second: "/assets/product/zx9-2.png", 
+          third: "/assets/product/zx9-3.png"
+        }}
+      />
 
       {/* You May Also Like */}
       <section className="py-20 bg-white">

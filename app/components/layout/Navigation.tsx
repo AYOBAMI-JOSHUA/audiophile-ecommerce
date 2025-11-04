@@ -1,16 +1,22 @@
-export default function Navigation() {
+export default function Navigation({ isMobile = false }) {
+  const navClasses = isMobile 
+    ? "flex flex-col space-y-8 text-center"
+    : "hidden md:flex space-x-8";
+
+  const linkClasses = "text-subtitle hover:text-primary transition-colors font-bold";
+
   return (
-    <nav className="flex space-x-8">
-      <a href="/" className="text-subtitle hover:text-primary transition-colors">
+    <nav className={navClasses}>
+      <a href="/" className={linkClasses}>
         HOME
       </a>
-      <a href="/category/headphones" className="text-subtitle hover:text-primary transition-colors">
+      <a href="/category/headphones" className={linkClasses}>
         HEADPHONES
       </a>
-      <a href="/category/speakers" className="text-subtitle hover:text-primary transition-colors">
+      <a href="/category/speakers" className={linkClasses}>
         SPEAKERS
       </a>
-      <a href="/category/earphones" className="text-subtitle hover:text-primary transition-colors">
+      <a href="/category/earphones" className={linkClasses}>
         EARPHONES
       </a>
     </nav>

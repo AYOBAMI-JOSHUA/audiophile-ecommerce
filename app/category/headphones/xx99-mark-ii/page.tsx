@@ -8,6 +8,7 @@ import ProductGallery from "@/app/components/product/ProductGallery";
 import ProductDetails from "@/app/components/product/ProductDetails";
 import ProductCard from "@/app/components/product/ProductCard";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function XX99MarkIIPage() {
   const [quantity, setQuantity] = useState(1);
@@ -19,7 +20,7 @@ export default function XX99MarkIIPage() {
     description: "The new XX99 Mark II headphones is the pinnacle of pristine audio. It redefines your premium headphone experience by reproducing the balanced depth and precision of studio-quality sound.",
     features: `Featuring a genuine leather head strap and premium earcups, these headphones deliver superior comfort for those who like to enjoy endless listening. It includes intuitive controls designed for any situation. Whether you're taking a business call or just in your own personal space, the auto on/off and pause features ensure that you'll never miss a beat.\n\nThe advanced Active Noise Cancellation with built-in equalizer allow you to experience your audio world on your terms. It lets you enjoy your audio in peace, but quickly interact with your surroundings when you need to. Combined with Bluetooth 5.0 compliant connectivity and 17 hour battery life, the XX99 Mark II headphones gives you superior sound, cutting-edge technology, and a modern design aesthetic.`,
     price: 2999,
-    image: "/assets/xx99-mark-ii.png",
+    image: "/assets/category/xx99-mark-ii.png",
     includes: [
       { quantity: 1, item: "Headphone Unit" },
       { quantity: 2, item: "Replacement Earcups" },
@@ -36,7 +37,6 @@ export default function XX99MarkIIPage() {
   ];
 
   const handleAddToCart = () => {
-    // FIXED: Use addItem instead of addToCart and remove the for loop
     addItem({
       id: productData.id,
       name: productData.name,
@@ -44,7 +44,6 @@ export default function XX99MarkIIPage() {
       image: productData.image,
       quantity: quantity
     });
-    // Reset quantity after adding to cart
     setQuantity(1);
   };
 
@@ -72,8 +71,13 @@ export default function XX99MarkIIPage() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             {/* Product Image */}
-            <div className="bg-gray-dark rounded-lg h-[560px]">
-              {/* Product image placeholder */}
+            <div className="bg-gray-dark rounded-lg h-[560px] relative overflow-hidden">
+              <Image
+                src={productData.image}
+                alt={productData.name}
+                fill
+                className="object-contain p-8"
+              />
             </div>
             
             {/* Product Info */}
@@ -113,7 +117,13 @@ export default function XX99MarkIIPage() {
       <ProductDetails features={productData.features} includes={productData.includes} />
 
       {/* Gallery */}
-      <ProductGallery />
+      <ProductGallery 
+        images={{
+          first: "/assets/home/about-image.png",
+          second: "/assets/product/xx99-2.png", 
+          third: "/assets/product/xx99-3.png"
+        }}
+      />
 
       {/* You May Also Like */}
       <section className="py-20 bg-white">
