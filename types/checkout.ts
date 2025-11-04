@@ -22,4 +22,5 @@ export interface FormErrors {
   paymentMethod?: string;
   eMoneyNumber?: string;
   eMoneyPIN?: string;
+  submit?: string; // ← Add this line
 }
