@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel"; // ← Add this import
 import SuccessModal from "@/app/components/shared/SuccessModal";
 
 interface OrderItem {
@@ -28,8 +29,8 @@ export default function SuccessPage() {
     orderNumber: string;
   } | null>(null);
 
-  // Fetch order data from Convex
-  const order = useQuery(api.orders.getOrderById, orderId ? { orderId } : "skip");
+  // Fetch order data from Convex - FIXED with proper Id type
+  const order = useQuery(api.orders.getOrderById, orderId ? { orderId: orderId as Id<"orders"> } : "skip");
 
   useEffect(() => {
     if (order) {
