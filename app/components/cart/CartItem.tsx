@@ -1,14 +1,14 @@
 "use client";
 
-import { CartItem as CartItemType } from "./CartContext";
 import { useCart } from "./CartContext";
+import type { CartItem } from "@/types/checkout"; // ← Import from types file
 
 interface CartItemProps {
-  item: CartItemType;
+  item: CartItem;
 }
 
 export default function CartItem({ item }: CartItemProps) {
-  const { updateQuantity, removeFromCart } = useCart();
+  const { updateQuantity, removeItem } = useCart();
 
   return (
     <div className="flex items-center justify-between">
@@ -20,6 +20,13 @@ export default function CartItem({ item }: CartItemProps) {
         <div>
           <h3 className="body text-black font-bold">{item.name}</h3>
           <p className="body text-black text-opacity-50">${item.price}</p>
+          {/* Remove button */}
+          <button 
+            onClick={() => removeItem(item.id)}
+            className="text-red-500 text-sm underline mt-1"
+          >
+            Remove
+          </button>
         </div>
       </div>
 

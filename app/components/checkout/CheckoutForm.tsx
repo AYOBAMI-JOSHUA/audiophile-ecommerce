@@ -1,7 +1,13 @@
 // components/CheckoutForm.tsx
 "use client";
 
-import { CheckoutFormProps, FormFieldProps, RadioOptionProps } from '@/types/checkout';
+import { 
+  CheckoutFormProps, 
+  FormFieldProps, 
+  RadioOptionProps, 
+  CheckoutFormData, 
+  FormErrors 
+} from '@/types/checkout';
 
 const FormField: React.FC<FormFieldProps> = ({ 
   label, 
@@ -88,29 +94,29 @@ const PaymentDetails: React.FC<{
           <RadioOption
             label="e-Money"
             name="paymentMethod"
-            value="eMoney"
-            checked={formData.paymentMethod === "eMoney"}
+            value="e-Money"
+            checked={formData.paymentMethod === "e-Money"}
             onChange={onInputChange}
           />
 
           <RadioOption
             label="Cash on Delivery"
             name="paymentMethod"
-            value="cash"
-            checked={formData.paymentMethod === "cash"}
+            value="Cash on Delivery"
+            checked={formData.paymentMethod === "Cash on Delivery"}
             onChange={onInputChange}
           />
         </div>
       </div>
 
-      {formData.paymentMethod === "eMoney" && (
+      {formData.paymentMethod === "e-Money" && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <FormField
             label="e-Money Number"
             name="eMoneyNumber"
             type="text"
             placeholder="238521993"
-            value={formData.eMoneyNumber}
+            value={formData.eMoneyNumber || ""}
             onChange={onInputChange}
             error={errors.eMoneyNumber}
           />
@@ -120,14 +126,14 @@ const PaymentDetails: React.FC<{
             name="eMoneyPIN"
             type="text"
             placeholder="6891"
-            value={formData.eMoneyPIN}
+            value={formData.eMoneyPIN || ""}
             onChange={onInputChange}
             error={errors.eMoneyPIN}
           />
         </div>
       )}
 
-      {formData.paymentMethod === "cash" && (
+      {formData.paymentMethod === "Cash on Delivery" && (
         <div className="flex items-center mt-6">
           <div className="text-4xl text-gray-400 mr-6">💵</div>
           <p className="body text-black text-opacity-50">

@@ -19,6 +19,7 @@ export const sendOrderConfirmation = mutation({
     shippingAddress: v.string()
   },
   handler: async (ctx, args) => {
+    // Get environment variable from Convex
     const resendApiKey = process.env.RESEND_API_KEY;
     
     console.log("📧 Attempting to send email to:", args.to);
@@ -36,11 +37,24 @@ export const sendOrderConfirmation = mutation({
         
         <h3>Order Summary:</h3>
         ${args.items.map(item => `
-          <p>${item.name} x${item.quantity} - $${item.price}</p>
+          <div style="margin: 10px 0; padding: 10px; border-bottom: 1px solid #eee;">
+            <strong>${item.name}</strong><br>
+            Quantity: ${item.quantity} × $${item.price} = $${(item.quantity * item.price).toFixed(2)}
+          </div>
         `).join('')}
         
-        <p><strong>Total: $${args.grandTotal}</strong></p>
-        <p>Shipping to: ${args.shippingAddress}</p>
+        <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px;">
+          <p><strong>Subtotal: $${args.total.toFixed(2)}</strong></p>
+          <p>Shipping: $${args.shipping.toFixed(2)}</p>
+          <p>VAT: $${args.vat.toFixed(2)}</p>
+          <p style="font-size: 18px; font-weight: bold; color: #D87D4A;">Grand Total: $${args.grandTotal.toFixed(2)}</p>
+        </div>
+        
+        <p><strong>Shipping Address:</strong><br>${args.shippingAddress}</p>
+        
+        <p style="margin-top: 30px; color: #666;">
+          Thank you for choosing Audiophile! We'll notify you when your order ships.
+        </p>
       </div>
     `;
 
