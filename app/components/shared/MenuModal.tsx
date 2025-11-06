@@ -9,6 +9,7 @@ export default function MenuModal({ onClose }: { onClose: () => void }) {
 
         {/* Close Button */}
         <button 
+          aria-label="Close menu"
           className="absolute top-4 right-4 text-black hover:text-primary transition-colors z-10"
           onClick={onClose}
         >
@@ -21,11 +22,13 @@ export default function MenuModal({ onClose }: { onClose: () => void }) {
       {/* Mobile Menu */}
       <div className="md:hidden absolute inset-0 bg-white overflow-y-auto" onClick={(e) => e.stopPropagation()}>
         <div className="py-8">
-          <CategoryGrid />
+          {/* Use compact variant in mobile modal to avoid oversized images covering titles */}
+          <CategoryGrid compact />
         </div>
 
         {/* Close Button for Mobile */}
         <button 
+          aria-label="Close menu"
           className="absolute top-8 right-6 text-black hover:text-primary transition-colors z-10"
           onClick={onClose}
         >

@@ -1,5 +1,6 @@
 import { mutation } from "./_generated/server";
 import { v } from "convex/values";
+import nodemailer from "nodemailer";
 
 export const sendOrderConfirmation = mutation({
   args: {
@@ -19,13 +20,18 @@ export const sendOrderConfirmation = mutation({
     shippingAddress: v.string()
   },
   handler: async (ctx, args) => {
-    // Get environment variable from Convex
-    const resendApiKey = process.env.RESEND_API_KEY;
-    
     console.log("📧 Attempting to send email to:", args.to);
-    
-    if (!resendApiKey) {
-      console.log("❌ RESEND_API_KEY not set");
+
+    // SMTP configuration from environment variables
+    // Required env vars: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPort = process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT, 10) : undefined;
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+    const smtpFrom = process.env.SMTP_FROM || (smtpUser ? `"Audiophile" <${smtpUser}>` : undefined);
+
+    if (!smtpHost || !smtpPort || !smtpUser || !smtpPass) {
+      console.log("❌ SMTP configuration missing. Please set SMTP_HOST, SMTP_PORT, SMTP_USER and SMTP_PASS");
       throw new Error("Email service not configured");
     }
 
@@ -59,29 +65,26 @@ export const sendOrderConfirmation = mutation({
     `;
 
     try {
-      const response = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${resendApiKey}`,
+      // Create transporter using SMTP
+      const transporter = nodemailer.createTransport({
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpPort === 465, // true for 465, false for other ports
+        auth: {
+          user: smtpUser,
+          pass: smtpPass,
         },
-        body: JSON.stringify({
-          from: "Audiophile <onboarding@resend.dev>",
-          to: [args.to],
-          subject: `Order Confirmation #${args.orderId}`,
-          html: emailHtml,
-        }),
       });
 
-      const result = await response.json();
-      
-      if (!response.ok) {
-        console.error("Resend API error:", result);
-        throw new Error(`Email failed: ${result.message}`);
-      }
+      const info = await transporter.sendMail({
+        from: smtpFrom,
+        to: args.to,
+        subject: `Order Confirmation #${args.orderId}`,
+        html: emailHtml,
+      });
 
-      console.log("✅ Email sent successfully!");
-      return { success: true, messageId: result.id };
+      console.log("✅ Email sent successfully! MessageId:", info.messageId);
+      return { success: true, messageId: info.messageId };
 
     } catch (error) {
       console.error("❌ Email sending failed:", error);

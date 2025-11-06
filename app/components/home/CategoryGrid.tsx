@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function CategoryGrid() {
+export default function CategoryGrid({ compact = false }: { compact?: boolean }) {
   const categories = [
     {
       name: "HEADPHONES",
@@ -25,20 +25,20 @@ export default function CategoryGrid() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           {categories.map((category, index) => (
-            <div key={index} className="bg-gray-dark rounded-lg text-center relative h-40">
+            <div key={index} className={`bg-gray-dark rounded-lg text-center relative ${compact ? 'h-44 md:h-44' : 'h-44 md:h-44 lg:h-40'}`}>
               {/* Category Image */}
-              <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-32 h-32">
+              <div className={`absolute -top-8 md:-top-12 left-1/2 transform -translate-x-1/2 ${compact ? 'w-20 h-20 md:w-28 md:h-28' : 'w-24 h-24 md:w-32 md:h-32'}`}>
                 <Image
                   src={category.image}
                   alt={category.name}
-                  width={128}
-                  height={128}
+                  width={compact ? 112 : 128}
+                  height={compact ? 112 : 128}
                   className="object-contain"
                 />
               </div>
-              
+
               {/* Category Content */}
-              <div className="pt-20 pb-6">
+              <div className={compact ? 'pt-14 pb-6' : 'pt-16 pb-6 md:pt-20'}>
                 <h3 className="h6 text-black mb-4">{category.name}</h3>
                 <Link href={category.href} className="text-black text-opacity-50 hover:text-primary transition-colors font-bold text-sm uppercase tracking-wider inline-block">
                   SHOP <span className="text-primary">›</span>
