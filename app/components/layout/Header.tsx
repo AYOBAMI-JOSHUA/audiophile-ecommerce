@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <header className="bg-pure-black text-white relative">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between py-6 md:py-8 border-b border-white border-opacity-10">
+        <div className="flex items-center justify-between py-6 md:py-8 border-b border-white border-opacity-10 sm:px-16 md:px-16">
           <button 
             className="lg:hidden text-white"
             onClick={() => setIsMenuOpen(true)}
