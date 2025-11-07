@@ -12,7 +12,6 @@ export default function Header() {
     <header className="bg-pure-black text-white relative">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between py-6 md:py-8 border-b border-white border-opacity-10">
-          {/* Mobile & Tablet Menu Button */}
           <button 
             className="lg:hidden text-white"
             onClick={() => setIsMenuOpen(true)}
@@ -23,12 +22,11 @@ export default function Header() {
             </svg>
           </button>
 
-          {/* Logo */}
+         
           <div className="text-xl md:text-2xl font-bold tracking-wider absolute left-1/2 transform -translate-x-1/2 lg:static lg:transform-none">
             audiophile
           </div>
 
-          {/* Desktop Navigation - shows only on large screens */}
           <div className="hidden lg:flex">
             <Navigation />
           </div>

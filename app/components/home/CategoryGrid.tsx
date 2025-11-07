@@ -25,14 +25,14 @@ export default function CategoryGrid({ compact = false }: { compact?: boolean })
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
           {categories.map((category, index) => (
-            <div key={index} className={`bg-gray-dark rounded-lg text-center relative ${compact ? 'h-44 md:h-44' : 'h-44 md:h-44 lg:h-40'}`}>
+            <div key={index} className={`bg-gray-dark rounded-lg text-center relative ${compact ? 'h-50 md:h-50' : 'h-44 md:h-50 lg:h-50'}`}>
               {/* Category Image */}
               <div className={`absolute -top-8 md:-top-12 left-1/2 transform -translate-x-1/2 ${compact ? 'w-20 h-20 md:w-28 md:h-28' : 'w-24 h-24 md:w-32 md:h-32'}`}>
                 <Image
                   src={category.image}
                   alt={category.name}
-                  width={compact ? 112 : 128}
-                  height={compact ? 112 : 128}
+                  width={compact ? 70 : 100}
+                  height={compact ? 70 : 90}
                   className="object-contain"
                 />
               </div>

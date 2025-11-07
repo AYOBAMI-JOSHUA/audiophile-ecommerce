@@ -13,12 +13,12 @@ export default function ZX9Promo() {
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-12 py-16 md:py-0 md:pt-16 md:pb-0">
           {/* Speaker Image - LEFT SIDE extending to bottom */}
-          <div className="relative flex-shrink-0 z-20 w-56 h-72 md:w-72 md:h-[420px]">
+          <div className="relative z-20 w-56 h-72 md:w-72 md:h-[420px]">
             <Image
-              src="/assets/home/image-speaker-zx9.png"
+              src="/assets/home/categoryspeakers.png"
               alt="ZX9 Speaker"
               fill
-              className="object-contain object-bottom"
+              className="object-contain object-bottom "
               priority
             />
           </div>
